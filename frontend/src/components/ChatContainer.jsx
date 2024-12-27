@@ -6,6 +6,8 @@ import { useAuthStore } from '../store/useAuthStore.js';
 import ChatHeader from './ChatHeader.jsx';
 import MessageInput from './MessageInput.jsx';
 
+import { formatMessageTime } from '../lib/utils.js';
+
 const ChatContainer = () => {
   const { messages, getMessages, isMessagesLoading, selectedUser } = useChatStore();
   const { authUser } = useAuthStore();
@@ -38,9 +40,11 @@ const ChatContainer = () => {
               </div>
             </div>
             <div className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">{message.createdAt}</time>
+              <time className="text-xs opacity-50 ml-1">
+                {formatMessageTime(message.createdAt)}
+              </time>
             </div>
-            <div className="chat-bubble flex">
+            <div className="chat-bubble flex flex-col">
               {message.image && (
                 <img
                   src={message.image}
